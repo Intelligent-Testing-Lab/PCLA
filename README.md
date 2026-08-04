@@ -154,7 +154,8 @@ Ensure that the downloaded pre-trained weight folders are placed directly next t
 
 ## 3. Autonomous Agents
 
-PCLA includes **41** different autonomous agents and **27** additional training seeds to choose from. 
+PCLA includes **41** different autonomous agents and **27** additional training seeds to choose from.</br>
+The **FPS** for each agent on our hardware is recorded in `documents` folder and [documents/agent_test_results.txt](https://github.com/MasoudJTehrani/PCLA/blob/main/documents/agent_test_results.txt).
 > **Find the repository of each agent at the top of this page.**
 
 ### SimLingo
