@@ -50,7 +50,10 @@ class PCLA():
         self.world = client.get_world()
         self.vehicle = vehicle
         self.routePath = route
-        self._watchdog = Watchdog(260) # TODO: Increase timeout if needed for large models
+        # Watchdog guards agent load/build (see setup_agent). Large models (LMDrive,
+        # the 7B VLAs) can legitimately take minutes to load cold, so the timeout is
+        # env-configurable; default 260s preserves prior behaviour.
+        self._watchdog = Watchdog(int(os.environ.get('PCLA_WATCHDOG_SEC', '260')))
         CarlaDataProvider.set_client(self.client)
         CarlaDataProvider.set_world(self.world)
         self.setup_agent(agent)
