@@ -19,6 +19,8 @@ sensor data and route it to any sink:
 | [`pcla_bridge.py`](pcla_bridge.py) | The bridge: `PCLAAgentBridge` — load an agent, feed sensors, get control |
 | [`bridge_sample.py`](bridge_sample.py) | Sample code of running an agent over a recorded drive |
 | [`samples/carla_run/`](samples/) | A bundled real Town02 recording (video + route + telemetry) to try immediately |
+| [`samples/sensor_packs/`](samples/sensor_packs/) | Per-agent reference of the exact `input_data` each agent expects (specs, shapes, units, example frames, real captured values) |
+| [`make_sensor_packs.py`](make_sensor_packs.py) | Regenerates the sensor packs from a CARLA server (needs one running) |
 
 ---
 
@@ -46,6 +48,16 @@ while driving:
 - speed → m/s
 
 The bridge converts to CARLA's exact wire format for you.
+
+## Know exactly what to feed each agent
+
+`sensor_layout()` tells you an agent's sensor ids at runtime. For a concrete,
+inspectable reference — the exact spec (resolution, FOV, placement, rate), array
+shapes and dtypes, unit conventions, **example camera frames**, and **real captured
+values** for every sensor — see [`samples/sensor_packs/`](samples/sensor_packs/).
+Open its [`README.md`](samples/sensor_packs/) and look your agent up in the table;
+agents with identical sensor rigs share one pack. This is the fastest way to match
+your own source to what an agent expects (see "Sensor fidelity" below).
 
 ## Sample code
 

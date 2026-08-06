@@ -111,6 +111,8 @@ class SpeedometerReader(BaseReader):
         """ We convert the vehicle physics information into a convenient dictionary """
 
         # protect this access against timeout
+        velocity = None
+        transform = None
         attempts = 0
         while attempts < self.MAX_CONNECTION_ATTEMPTS:
             try:
@@ -121,6 +123,12 @@ class SpeedometerReader(BaseReader):
                 attempts += 1
                 time.sleep(0.2)
                 continue
+
+        # The vehicle can become unreachable (e.g. destroyed during teardown between
+        # agents) while this reader's thread is still ticking; report a safe zero
+        # reading instead of crashing the thread on an unbound-local reference.
+        if transform is None or velocity is None:
+            return {'speed': 0.0}
 
         return {'speed': self._get_forward_speed(transform=transform, velocity=velocity)}
 
