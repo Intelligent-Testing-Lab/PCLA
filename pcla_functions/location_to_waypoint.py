@@ -1,12 +1,16 @@
-import carla
+import colorsys
 import sys
 from pathlib import Path
+
+import carla
+
 sys.path.append(str(Path(__file__).parent.parent))
 
 from leaderboard_codes.global_route_planner import GlobalRoutePlanner
 from leaderboard_codes.global_route_planner_dao import GlobalRoutePlannerDAO
 
-def location_to_waypoint(client, starting_location, ending_location, distance=2, draw=False):
+
+def location_to_waypoint(client, starting_location, ending_location, distance=2, draw=False, color=None):
     # This function is used to generate waypoints between two locations
     world = client.get_world()
     amap = world.get_map()
@@ -17,9 +21,17 @@ def location_to_waypoint(client, starting_location, ending_location, distance=2,
     
     # draw the route on the carla simulator
     if draw:
+        n = max(len(w1) - 1, 1)
         for i, w in enumerate(w1):
-            color = carla.Color(r=255, g=0, b=0) if i % 10 == 0 else carla.Color(r=0, g=0, b=255)
+            t = i / n
+            # sweep the hue the "long way" so we go green → cyan → blue → magenta → red
+            if color is None:
+                hue = 0.33 - 0.33 * t
+                r, g, b = colorsys.hsv_to_rgb(hue, 1.0, 1.0)
+                color = carla.Color(int(r*255), int(g*255), int(b*255))
+            
+
             world.debug.draw_string(w[0].transform.location, 'O', draw_shadow=False,
-                                     color=color, life_time=60.0, persistent_lines=True)
+                                     color=color, life_time=30.0, persistent_lines=True)
     
     return [wp[0] for wp in w1]

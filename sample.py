@@ -1,7 +1,8 @@
-import carla
 import time
-from PCLA import PCLA
 
+import carla
+
+from PCLA import PCLA
 
 
 def main():
@@ -54,7 +55,7 @@ def main():
 
         world.tick()
 
-        agent = "orion_base"
+        agent = "tfv6_regnet"
         route = "./sample_route.xml"
         pcla = PCLA(agent, vehicle, route, client)
         
@@ -66,6 +67,7 @@ def main():
                 vehicle.apply_control(ego_action)
                 world.tick()
                 step += 1
+                print(f'Step {step}: Applied control: {ego_action}')
             except Exception as e:
                 print(f'\nError at step {step}:')
                 print(f'{type(e).__name__}: {e}\n')
