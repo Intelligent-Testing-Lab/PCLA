@@ -12,12 +12,12 @@ class Line:
 
 
 class MapVisualization:
-    def __init__(self, args):
-        self.carla_client = carla.Client(args.host, args.port, worker_threads=1)
-        self.carla_client.set_timeout(30.0)
-        # self.carla_client.load_world(args.map)
-        self.world = self.carla_client.get_world()
-        self.map = self.world.get_map()
+    def __init__(self, carla_map: carla.Map):
+        # self.carla_client = carla.Client(args.host, args.port, worker_threads=1)
+        # self.carla_client.set_timeout(30.0)
+        # # self.carla_client.load_world(args.map)
+        # self.world = self.carla_client.get_world()
+        self.map = carla_map
         self.fig, self.ax = plt.subplots(figsize=(10, 10))
         self.line_list = []
 

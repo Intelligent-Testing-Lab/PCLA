@@ -6,7 +6,10 @@ import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
-import wandb
+try:
+    import wandb
+except Exception:  # wandb not installed / incompatible protobuf
+    wandb = None
 from beartype import beartype
 from numpy.typing import NDArray
 from PIL import Image, ImageDraw, ImageFont

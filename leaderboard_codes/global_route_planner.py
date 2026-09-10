@@ -9,15 +9,16 @@ This module provides GlobalRoutePlanner implementation.
 """
 
 import math
-import numpy as np
-import networkx as nx
 
 import carla
+import networkx as nx
+import numpy as np
+
 from .local_planner import RoadOption
 from .misc import vector
 
 
-class GlobalRoutePlanner(object):
+class GlobalRoutePlanner:
     """
     This class provides a very high level route plan.
     Instantiate the class by passing a reference to
@@ -151,7 +152,9 @@ class GlobalRoutePlanner(object):
         return          :   pair node ids representing an edge in the graph
         """
         waypoint = self._dao.get_waypoint(location)
-        edge = None
+        if not waypoint or waypoint.is_junction:
+            raise ValueError("Failed to localize: ", location.x, location.y, location.z)
+        
         try:
             edge = self._road_id_to_edge[waypoint.road_id][waypoint.section_id][waypoint.lane_id]
         except KeyError:
@@ -348,7 +351,11 @@ class GlobalRoutePlanner(object):
         """
 
         route_trace = []
-        route = self._path_search(origin, destination)
+        try:
+            route = self._path_search(origin, destination)
+        except (ValueError, KeyError):
+            return route_trace
+        
         current_waypoint = self._dao.get_waypoint(origin)
         destination_waypoint = self._dao.get_waypoint(destination)
         resolution = self._dao.get_resolution()

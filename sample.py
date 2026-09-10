@@ -56,7 +56,7 @@ def main():
         world.tick()
 
         agent = "tfv6_regnet"
-        route = "./sample_route.xml"
+        route = "./valid_route.xml"
         pcla = PCLA(agent, vehicle, route, client)
         
         print('\nSpawned the vehicle with model =', agent,', press Ctrl+C to exit.\n')
