@@ -10,7 +10,7 @@
 # for the apt/docker host packages. Run steps deliberately -- read the echoes.
 # ---------------------------------------------------------------------------
 set -e
-AWROOT="${AWROOT:-$HOME/autoware_carla_launch}"
+AWROOT="${AWROOT:-$HOME/Documents/dev/autoware_carla_launch}"
 KIT="$(cd "$(dirname "$0")" && pwd)"
 BRANCH=jazzy   # CARLA 0.9.16 / Autoware 1.8.0 / Zenoh 1.9.0 -- matches PCLA's CARLA
 

@@ -7,7 +7,7 @@
 # Usage:  bash install_kit.sh [/path/to/autoware_carla_launch]   (default: $HOME/autoware_carla_launch)
 # ---------------------------------------------------------------------------
 set -e
-AWROOT="${1:-$HOME/autoware_carla_launch}"
+AWROOT="${AWROOT:-$HOME/Documents/dev/autoware_carla_launch}"
 KIT="$(cd "$(dirname "$0")" && pwd)"
 V2X="$AWROOT/external/zenoh_autoware_v2x"
 

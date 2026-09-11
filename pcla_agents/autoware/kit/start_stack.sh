@@ -13,8 +13,8 @@
 #                                                    # default renderer segfaults / shows a black window)
 # ---------------------------------------------------------------------------
 # Paths (override via env for non-default installs):
-CARLA_DIR="${CARLA_DIR:-$HOME/carla_lite16}"     # dir containing CarlaUE4.sh
-AWROOT="${AWROOT:-$HOME/autoware_carla_launch}"  # the evshary/autoware_carla_launch clone
+CARLA_DIR="${CARLA_DIR:-$HOME/Documents/dev/carla0.9.16}"     # dir containing CarlaUE4.sh
+AWROOT="${AWROOT:-$HOME/Documents/dev/autoware_carla_launch}"  # the evshary/autoware_carla_launch clone
 PCLA_PY="${PCLA_PY:-python}"                      # python with the CARLA 0.9.16 client (activate the PCLA env)
 CARLA_QUALITY="${CARLA_QUALITY:-Epic}"
 # TOWN : which CARLA map to load. Its HD map must exist at carla_map/$TOWN/ (lanelet2 + pcd +
@@ -23,8 +23,9 @@ TOWN="${TOWN:-Town01}"
 # RVIZ=1 : run CARLA HEADLESS (no window jitter -> reliable) and show Autoware's RViz
 #          instead (car + HD map + LiDAR + planned path). Needs aw_autoware created
 #          with X11 + `xhost +local:`.
-RVIZ="${RVIZ:-0}"
-[ "$RVIZ" = "1" ] && RENDER_OFFSCREEN=1
+# RVIZ="${RVIZ:-0}"
+RVIZ=1
+# [ "$RVIZ" = "1" ] && RENDER_OFFSCREEN=1
 RENDER=""
 [ "${RENDER_OFFSCREEN:-0}" = "1" ] && RENDER="-RenderOffScreen"
 
