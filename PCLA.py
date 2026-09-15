@@ -57,7 +57,8 @@ class PCLA():
         CarlaDataProvider.set_client(self.client)
         CarlaDataProvider.set_world(self.world)
         self.setup_agent(agent)
-        self.setup_route()
+        if route is not None:
+            self.setup_route()
         self.setup_sensors()
 
     def setup_agent(self, agent):
